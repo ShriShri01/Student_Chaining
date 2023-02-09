@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "73dd0692-f13a-45e1-acd8-68c9c5b36fe7",
+		"name": "Student",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25558722"
+	},
+	"item": [
+		{
+			"name": "myfolder",
+			"item": [
+				{
+					"name": "Get All",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"id_global\",\"109\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"  pm.expect(jsonData).to.be.an(\"object\");\r",
+									"  pm.expect(jsonData.name).to.be.a(\"string\");\r",
+									"  pm.expect(jsonData.subject).to.be.a(\"string\");\r",
+									"  pm.expect(jsonData.courses).to.be.an(\"array\");\r",
+									"  pm.expect(jsonData.Phone).to.be.a(\"number\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Record",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"rakesh\",\r\n      \"subject\": \"che\",\r\n      \"Phone\": \"01985\",\r\n      \"courses\": [\r\n        \"java\",\r\n        \"Python\"\r\n      ]\r\n      \"id\": \"73QHWXf\"\r\n    }"
+						},
+						"url": {
+							"raw": "{{URL}}/73QHWXf",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"73QHWXf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202,200]);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"  pm.expect(jsonData).to.be.an(\"object\");\r",
+									"  pm.expect(jsonData.name).to.be.a(\"string\");\r",
+									"  pm.expect(jsonData.subject).to.be.a(\"string\");\r",
+									"  pm.expect(jsonData.courses).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Person is rahul\", () => {\r",
+									"  const responseJson = pm.response.json();\r",
+									"  pm.expect(responseJson.name).to.eql(\"rahul\");\r",
+									"  pm.expect(responseJson.id).to.eql(\"101\");\r",
+									"  pm.expect(responseJson.subject).to.eql(\"maths\");\r",
+									"});\r",
+									"\r",
+									"var schema={\r",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"subject\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"Phone\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"courses\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        {\r",
+									"          \"type\": \"string\"\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"id\",\r",
+									"    \"name\",\r",
+									"    \"subject\",\r",
+									"    \"Phone\",\r",
+									"    \"courses\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.test('Schema is valid', function() {  \r",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"  });\r",
+									"\r",
+									"  //unset environment variable\r",
+									"  pm.variables"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"pre-requisite at test level\");\r",
+									"\r",
+									"//Local\r",
+									"pm.variables.set(\"local_id\",\"104\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{id_global}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{id_global}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \r\n      \"name\": \"amit\",\r\n      \"subject\": \"chemistry\",\r\n\"Phone\":\"01987\",\r\n \"courses\":[\r\n             \"java\", \"Python\"]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a record",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"rakesh\",\r\n      \"subject\": \"che\",\r\n      \"Phone\": \"01985\",\r\n      \"courses\": [\r\n        \"java\",\r\n        \"Python\"\r\n      ]\r\n      \"id\": \"73QHWXf\"\r\n    }"
+						},
+						"url": {
+							"raw": "{{URL}}/73QHWXf",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"73QHWXf"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"Pre-requisite script at folder level\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log(\"Pre-requisite script at collection level\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
